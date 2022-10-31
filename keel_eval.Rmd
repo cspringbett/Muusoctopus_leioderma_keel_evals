@@ -5,7 +5,46 @@ date: "10/31/2022"
 output: pdf_document
 ---
 
+# Load libraries
 ```{r}
 library(googlesheets4)
+```
+
+
+# Read in Sheets, combine keel dataset
+```{r reading in google sheets}
+sheetnames=sheet_names("https://docs.google.com/spreadsheets/d/1ckVjS4Jw9o_eg_l_TAwDFNp_evuu36sFHmXyUqT6YqA")
+evalnames=grep("Keel Prominence", sheetnames, value=T)
+
+keels=read_sheet("https://docs.google.com/spreadsheets/d/1ckVjS4Jw9o_eg_l_TAwDFNp_evuu36sFHmXyUqT6YqA", sheet=evalnames[1])
+
+for (i in 2:length(evalnames)){
+  keels=rbind(
+    keels,
+    read_sheet("https://docs.google.com/spreadsheets/d/1ckVjS4Jw9o_eg_l_TAwDFNp_evuu36sFHmXyUqT6YqA", sheet=evalnames[i])
+  )
+}
+keels=data.frame(keels)
+keels$O1=as.numeric(keels$O1)
+keels$O2=as.numeric(keels$O2)
+```
+
+# Replace Evals with Numbers
+```{r}
+code=c("VP", "P", "A","W", "M", "none")
+value=c(4,3,2,1,0,NA)
+lookup=data.frame(code,value)
+
+for (i in 1:nrow(keels)){
+  for (j in 2:6){
+    keels[i,j]=lookup$value[lookup$code==keels[i,j]]
+  }
+}
+
+```
+
+
+```{r}
+aggregate(O2~Octopus_Tank,data=keels,FUN="mean",na.action=na.pass)
 ```
 

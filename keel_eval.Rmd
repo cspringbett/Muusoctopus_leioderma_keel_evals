@@ -6,6 +6,6 @@ output: pdf_document
 ---
 
 ```{r}
-
+library(googlesheets4)
 ```
 

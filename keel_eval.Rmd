@@ -25,11 +25,9 @@ for (i in 2:length(evalnames)){
   )
 }
 keels=data.frame(keels)
-keels$O1=as.numeric(keels$O1)
-keels$O2=as.numeric(keels$O2)
 ```
 
-# Replace Evals with Numbers
+# Quantify Keel Evals
 ```{r}
 code=c("VP", "P", "A","W", "M", "none")
 value=c(4,3,2,1,0,NA)
@@ -43,8 +41,39 @@ for (i in 1:nrow(keels)){
 
 ```
 
-
+# Convert to numeric
 ```{r}
-aggregate(O2~Octopus_Tank,data=keels,FUN="mean",na.action=na.pass)
+keels$O1=as.numeric(keels$O1)
+keels$O2=as.numeric(keels$O2)
+keels$O3=as.numeric(keels$O3)
+keels$O4=as.numeric(keels$O4)
+keels$O5=as.numeric(keels$O5)
+```
+
+# Get means
+```{r}
+obs1=aggregate(O1~Octopus_Tank,data=keels,FUN="mean",na.action=na.pass)
+obs2=aggregate(O2~Octopus_Tank,data=keels,FUN="mean",na.action=na.pass)
+obs3=aggregate(O3~Octopus_Tank,data=keels,FUN="mean",na.action=na.pass)
+obs4=aggregate(O4~Octopus_Tank,data=keels,FUN="mean",na.action=na.pass)
+obs5=aggregate(O5~Octopus_Tank,data=keels,FUN="mean",na.action=na.pass)
+```
+
+#Combine to get total means
+```{r}
+dfmean=data.frame(c(
+(aggregate(O1~Octopus_Tank,data=keels,FUN="mean",na.action=na.pass)),
+(aggregate(O2~Octopus_Tank,data=keels,FUN="mean",na.action=na.pass)),
+(aggregate(O3~Octopus_Tank,data=keels,FUN="mean",na.action=na.pass)),
+(aggregate(O4~Octopus_Tank,data=keels,FUN="mean",na.action=na.pass)),
+(aggregate(O5~Octopus_Tank,data=keels,FUN="mean",na.action=na.pass))
+))
+
+dfmean$Octopus_Tank.1<- NULL
+dfmean$Octopus_Tank.2<- NULL
+dfmean$Octopus_Tank.3<- NULL
+dfmean$Octopus_Tank.4<- NULL
+
+dfmean
 ```
 

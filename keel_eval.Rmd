@@ -50,14 +50,6 @@ keels$O4=as.numeric(keels$O4)
 keels$O5=as.numeric(keels$O5)
 ```
 
-# Get means
-```{r}
-obs1=aggregate(O1~Octopus_Tank,data=keels,FUN="mean",na.action=na.pass)
-obs2=aggregate(O2~Octopus_Tank,data=keels,FUN="mean",na.action=na.pass)
-obs3=aggregate(O3~Octopus_Tank,data=keels,FUN="mean",na.action=na.pass)
-obs4=aggregate(O4~Octopus_Tank,data=keels,FUN="mean",na.action=na.pass)
-obs5=aggregate(O5~Octopus_Tank,data=keels,FUN="mean",na.action=na.pass)
-```
 
 #Combine to get total means
 ```{r}

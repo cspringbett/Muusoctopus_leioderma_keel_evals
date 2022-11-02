@@ -84,7 +84,7 @@ keeldate$O4 <- as.Date(keeldate$O4, format="%m-%d")
 keeldate$O5 <- as.Date(keeldate$O5, format="%m-%d")
 ```
 
-# Get days betwwen observations
+# Get days between observations
 ```{r}
 d1<-keeldate$O1-keeldate$In
 d2<-keeldate$O2-keeldate$O1
@@ -96,5 +96,6 @@ d5<-keeldate$O5-keeldate$O4
 ```{r}
 datedif<-matrix(c(d1,d2,d3,d4,d5), ncol=5)
 rownames(datedif) = keeldate$Octopus_Tank
+colnames(datedif) = c("O1-In","O2-O1","O3-O2","O4-O3","O5-O4")
 ```
 

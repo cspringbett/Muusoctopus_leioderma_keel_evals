@@ -51,7 +51,7 @@ keels$O5=as.numeric(keels$O5)
 ```
 
 
-#Combine to get total means
+#Combine to get total means between observers
 ```{r}
 dfmean=data.frame(c(
 (aggregate(O1~Octopus_Tank,data=keels,FUN="mean",na.action=na.pass)),
@@ -66,6 +66,35 @@ dfmean$Octopus_Tank.2<- NULL
 dfmean$Octopus_Tank.3<- NULL
 dfmean$Octopus_Tank.4<- NULL
 
-dfmean
+```
+
+# Import specific dates of observations
+```{r}
+dates=grep("Keel Dates", sheetnames, value=T)
+keeldate=read_sheet("https://docs.google.com/spreadsheets/d/1ckVjS4Jw9o_eg_l_TAwDFNp_evuu36sFHmXyUqT6YqA", sheet=dates[1])
+```
+
+# Convert to date format
+```{r}
+keeldate$In <- as.Date(keeldate$In, format="%m-%d")
+keeldate$O1 <- as.Date(keeldate$O1, format="%m-%d")
+keeldate$O2 <- as.Date(keeldate$O2, format="%m-%d")
+keeldate$O3 <- as.Date(keeldate$O3, format="%m-%d")
+keeldate$O4 <- as.Date(keeldate$O4, format="%m-%d")
+keeldate$O5 <- as.Date(keeldate$O5, format="%m-%d")
+```
+
+# Get days betwwen observations
+```{r}
+d1<-keeldate$O1-keeldate$In
+d2<-keeldate$O2-keeldate$O1
+d3<-keeldate$O3-keeldate$O2
+d4<-keeldate$O4-keeldate$O3
+d5<-keeldate$O5-keeldate$O4
+```
+
+```{r}
+datedif<-matrix(c(d1,d2,d3,d4,d5), ncol=5)
+rownames(datedif) = keeldate$Octopus_Tank
 ```
 

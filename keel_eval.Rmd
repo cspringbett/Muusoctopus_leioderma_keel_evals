@@ -8,6 +8,8 @@ output: pdf_document
 # Load libraries
 ```{r}
 library(googlesheets4)
+library(reshape2)
+
 ```
 
 
@@ -93,11 +95,23 @@ d4<-keeldate$O4-keeldate$In
 d5<-keeldate$O5-keeldate$In
 ```
 
+# Create dataframe of days between observations 
 ```{r}
 datedif <- matrix(c(d1,d2,d3,d4,d5), nrow = 5, byrow=TRUE)
 colnames(datedif) = keeldate$Octopus_Tank
-rownames(datedif) = c("01","O2","O3","O4","O5")
+rownames(datedif) = c("O1","O2","O3","O4","O5")
+
+datedif <- as.data.frame(datedif)
 ```
 
+# Transcribe matching dataframe of mean keel evals
+
+```{r}
+dfmeancol <- matrix(c(dfmean$O1,dfmean$O2,dfmean$O3,dfmean$O4,dfmean$O5), ncol=10, byrow=TRUE)
+colnames(dfmeancol)=dfmean$Octopus_Tank
+rownames(dfmeancol) = c("O1","O2","O3","O4","O5")
+
+dfmeancol <- as.data.frame(dfmeancol)                     
+```
 
 

@@ -114,7 +114,32 @@ rownames(dfmeancol) = c("O1","O2","O3","O4","O5")
 dfmeancol <- as.data.frame(dfmeancol)                     
 ```
 
+# Plot results
 ```{r}
-plot(dfmeancol$Amanda_CS2~datedif$Amanda_CS2, type="l")
+plot(dfmeancol$Amanda_CS2~datedif$Amanda_CS2, type="l",
+     main="Keel Loss",
+     xlab="Days in Captivity",
+     ylab="Keel Prominence",
+     col="red",
+     xlim=c(0,40),
+     ylim=c(0,4)
+     )
+    
+
+lines(dfmeancol$Brendon_CS4~datedif$Brendon_CS4, col="blue")
+lines(dfmeancol$Jerry_CS2~datedif$Jerry_CS2, col="green")
+lines(dfmeancol$Joe_CS1~datedif$Joe_CS1, col="orange")
+lines(dfmeancol$Jordan_CS4~datedif$Jordan_CS4, col="purple")
+lines(dfmeancol$Naddlie_CS1~datedif$Naddlie_CS1, col="lightblue")
+lines(dfmeancol$Neola_CS5~datedif$Neola_CS5, col="black")
+lines(dfmeancol$Oscar_CS3~datedif$Oscar_CS3, col="darkgreen")
+lines(dfmeancol$Rian_CS5~datedif$Rian_CS5, col="gray")
+lines(dfmeancol$Veronica_CS3~datedif$Veronica_CS3, col="coral")
+
+legend("bottomright", c("Amanda_CS2","Brendon_CS4","Jerry_CS2","Joe_CS1","Jordan_CS4","Naddlie_CS1",
+   "Neola_CS5","Oscar_CS3","Rian_CS5","Veronica_CS3"),
+   fill = c("blue","green","orange","purple","lightblue","black",
+            "darkgreen","gray","coral"
+   ))
 ```
 

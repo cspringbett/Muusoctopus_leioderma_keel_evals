@@ -114,4 +114,7 @@ rownames(dfmeancol) = c("O1","O2","O3","O4","O5")
 dfmeancol <- as.data.frame(dfmeancol)                     
 ```
 
+```{r}
+plot(dfmeancol$Amanda_CS2~datedif$Amanda_CS2, type="l")
+```
 

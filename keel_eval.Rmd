@@ -144,10 +144,28 @@ legend("right", c("Amanda_CS2","Brendon_CS4","Jerry_CS2","Joe_CS1","Jordan_CS4",
 ```
 ```{r}
 burrowers <- c("no","yes","yes","no","yes","no","yes","yes","no","yes")
+
+
+
 ```
 
 ```{r}
 df3 <- df
 df3$Burrowers <- burrowers
+```
+
+```{r}
+keels.df=data.frame(
+  stack(dfmeancol),
+  measure=rep(rownames(dfmeancol),10),
+  days=stack(datedif)$value,
+  burrow="no"
+)
+
+colnames(keels.df)[1:2]=c("keel","octo")
+keels.df=keels.df[,c(2,3,1,4,5)]
+
+keels.df$burrow[keels.df$octo %in% colnames(dfmeancol)[burrowers=="yes"]]="yes"
+
 ```
 

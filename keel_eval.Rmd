@@ -9,7 +9,8 @@ output: pdf_document
 ```{r}
 library(googlesheets4)
 library(reshape2)
-
+library(nlme)
+library(car)
 ```
 
 
@@ -167,5 +168,95 @@ keels.df=keels.df[,c(2,3,1,4,5)]
 
 keels.df$burrow[keels.df$octo %in% colnames(dfmeancol)[burrowers=="yes"]]="yes"
 
+```
+
+# Running Linear effects model
+
+## Set burrow status to factor class
+```{r}
+keels.df$burrow=as.factor(keels.df$burrow)
+```
+
+# Set contrast
+```{r}
+contrasts(keels.df$burrow)=contr.poly(2)
+```
+
+# Run LME
+```{r}
+keels.df.back=keels.df
+keels.df=keels.df[complete.cases(keels.df),]
+keels.df=keels.df[!grepl("Neola|Veronica",keels.df$octo),]
+```
+
+```{r}
+keels.lme=lme(keel~days*burrow,random=~1|octo,
+             correlation=corAR1(form=~days|octo),
+              data=keels.df)
+keels.anova=Anova(keels.lme,type="III")
+keels.anova
+```
+
+# Plotting data
+
+```{r}
+seq.yes=seq(from=min(keels.df$days[keels.df$burrow=="yes"]),
+              to=max(keels.df$days[keels.df$burrow=="yes"]),
+              length.out=100)
+
+df1.yes=data.frame(
+  day=rep(1,100),
+  days=seq.yes,
+  burrow=as.factor(rep("yes",100))
+)
+pred1.yes= predict(keels.lme,newdata = df1.yes,level=0)
+
+
+
+
+seq.no=seq(from=min(keels.df$days[keels.df$burrow=="no"]),
+              to=max(keels.df$days[keels.df$burrow=="no"]),
+              length.out=100)
+
+df1.no=data.frame(
+  day=rep(1,100),
+  days=seq.no,
+  burrow=as.factor(rep("no",100))
+)
+pred1.no= predict(keels.lme,newdata = df1.no,level=0)
+```
+
+
+```{r}
+yes.col=(col="blue")
+no.col=(col="red")
+```
+
+```{r}
+svg(filename="Figure_3.svg",height=3.5,width=3.5,pointsize=6)
+par(fig=c(0.04,1,0,1))
+
+plot((unlist(keels))~days,data=keels.df,axes=F,ylab="",xlab="",type="n")
+box(lwd=2)
+
+
+
+points(keels~days,data=keels.df[keels.df$burrow=="yes"],
+       pch=22,bg="white",col="blue",cex=1.5)
+
+points(keels~days,data=keels.df[keels.df$burrow=="no"],
+       pch=21,bg="white", col="red",cex=1.5)
+
+
+lines(exp(seq.yes),exp(pred1.yes),col="blue",lwd=2,lty=2)
+lines(exp(seq.no),exp(pred1.no),col="red",lwd=2,lty=2)
+
+
+legend("topright", c(expression("Burrowers"),
+                     expression("Non-Burrowers")),
+       
+       pch = c(22,21),bty="n",title = expression("Treatment pCO"["2"]))
+       
+dev.off()
 ```
 

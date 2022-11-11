@@ -236,7 +236,7 @@ no.col=(col="red")
 #svg(filename="Figure_3.svg",height=3.5,width=3.5,pointsize=6)
 par(fig=c(0.04,1,0,1))
 
-plot(keel~days,data=keels.df,axes=F,ylab="Burrowing Prominece",xlab="Days in Captivity",type="n")
+plot(keel~days,data=keels.df,axes=F,ylab="Keel Prominece",xlab="Days in Captivity",main="Keel Regression in Captive Octopuses",type="n")
 box(lwd=2)
 axis(1)
 axis(2)
@@ -288,8 +288,10 @@ lines(seq.yes,pred1.yes,col="blue",lwd=2,lty=1)
 lines(seq.no,pred1.no,col="red",lwd=2,lty=1)
 
 
-#legend("topright", c(expression("Burrowers"),
-                     #expression("Non-Burrowers")),
+legend("topright", 
+       legend=c("Burrowers","Non-Burrowers"),
+       lty=c(1,1),
+       col=c("blue","red"))
        
       #pch = c(,21),bty="n",title = expression("Activity"["2"]))
        

@@ -233,30 +233,41 @@ no.col=(col="red")
 ```
 
 ```{r}
-svg(filename="Figure_3.svg",height=3.5,width=3.5,pointsize=6)
+#svg(filename="Figure_3.svg",height=3.5,width=3.5,pointsize=6)
 par(fig=c(0.04,1,0,1))
 
-plot((unlist(keels))~days,data=keels.df,axes=F,ylab="",xlab="",type="n")
+plot(keel~days,data=keels.df,axes=F,ylab="",xlab="",type="n")
 box(lwd=2)
+axis(1)
+axis(2)
 
 
 
-points(keels~days,data=keels.df[keels.df$burrow=="yes"],
-       pch=22,bg="white",col="blue",cex=1.5)
+#points(keel~days,data=keels.df[keels.df$burrow=="yes",],
+#       pch=22,bg="white",col="blue",cex=1.5)
 
-points(keels~days,data=keels.df[keels.df$burrow=="no"],
+lines(keel~days,data=keels.df[keels.df$octo=="Brendon_CS4",],col="lightblue",lwd=0.5)
+
+points(keel~days,data=keels.df[keels.df$burrow=="no",],
        pch=21,bg="white", col="red",cex=1.5)
+points(keel~days,data=keels.df[keels.df$octo=="Brendon_CS4",],
+       pch=22,bg="blue",cex=1.5)
+
+points(keel~days,data=keels.df[keels.df$octo=="Jerry_CS2",],
+       pch=21,bg="blue",cex=1.5)
+points(keel~days,data=keels.df[keels.df$octo=="Oscar_CS3",],
+       pch=23,bg="blue",cex=1.5)
 
 
-lines(exp(seq.yes),exp(pred1.yes),col="blue",lwd=2,lty=2)
-lines(exp(seq.no),exp(pred1.no),col="red",lwd=2,lty=2)
+lines(seq.yes,pred1.yes,col="blue",lwd=2,lty=1)
+lines(seq.no,pred1.no,col="red",lwd=2,lty=1)
 
 
-legend("topright", c(expression("Burrowers"),
-                     expression("Non-Burrowers")),
+#legend("topright", c(expression("Burrowers"),
+#                     expression("Non-Burrowers")),
        
-       pch = c(22,21),bty="n",title = expression("Treatment pCO"["2"]))
+#       pch = c(22,21),bty="n",title = expression("Treatment pCO"["2"]))
        
-dev.off()
+#dev.off()
 ```
 

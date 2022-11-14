@@ -232,56 +232,72 @@ yes.col=(col="blue")
 no.col=(col="red")
 ```
 
+Making a slightly modified dataset for plotting.  Doing this to jitter points that fall directly on top of each other by 0.5 days.
+```{r}
+keels.plot=keels.df
+keels.plot$days[keels.plot$octo=="Jordan_CS4"&keels.plot$days==2]=
+  keels.plot$days[keels.plot$octo=="Jordan_CS4"&keels.plot$days==2]+0.2
+keels.plot$days[keels.plot$octo=="Jerry_CS2"&keels.plot$days==2]=
+  keels.plot$days[keels.plot$octo=="Jerry_CS2"&keels.plot$days==2]-0.2
+keels.plot$days[keels.plot$octo=="Jordan_CS4"&keels.plot$days==6]=
+  keels.plot$days[keels.plot$octo=="Jordan_CS4"&keels.plot$days==6]+0.2
+keels.plot$days[keels.plot$octo=="Jerry_CS2"&keels.plot$days==6]=
+  keels.plot$days[keels.plot$octo=="Jerry_CS2"&keels.plot$days==6]-0.2
+
+```
+
+
+
 ```{r}
 #svg(filename="Figure_3.svg",height=3.5,width=3.5,pointsize=6)
 par(fig=c(0.04,1,0,1))
 
-plot(keel~days,data=keels.df,axes=F,ylab="Keel Prominece",xlab="Days in Captivity",main="Keel Regression in Captive Octopuses",type="n")
+plot(keel~days,data=keels.plot,axes=F,ylab="Keel Prominece",xlab="Days in Captivity",main="Keel Regression in Captive Octopuses",type="n")
 box(lwd=2)
 axis(1)
 axis(2)
 
 
 
-#points(keel~days,data=keels.df[keels.df$burrow=="yes",],
+#points(keel~days,data=keels.plot[keels.plot$burrow=="yes",],
 #       pch=22,bg="white",col="blue",cex=1.5)
 
 
 
-points(keel~days,data=keels.df[keels.df$burrow=="no",],
-       pch=21,bg="white", col="red",cex=1.5)
+#points(keel~days,data=keels.plot[keels.plot$burrow=="no",],
+#       pch=21,bg="white", col="red",cex=1.5)
 
-lines(keel~days,data=keels.df[keels.df$octo=="Brendon_CS4",],col="lightblue",lwd=0.4)
-points(keel~days,data=keels.df[keels.df$octo=="Brendon_CS4",],
+lines(keel~days,data=keels.plot[keels.plot$octo=="Brendon_CS4",],col="lightblue",lwd=0.4)
+points(keel~days,data=keels.plot[keels.plot$octo=="Brendon_CS4",],
        pch=22,bg="blue",cex=1.5)
 
-lines(keel~days,data=keels.df[keels.df$octo=="Jerry_CS2",],col="lightblue",lwd=0.4)
-points(keel~days,data=keels.df[keels.df$octo=="Jerry_CS2",],
+lines(keel~days,data=keels.plot[keels.plot$octo=="Jerry_CS2",],col="lightblue",lwd=0.4)
+points(keel~days,data=keels.plot[keels.plot$octo=="Jerry_CS2",],
        pch=23,bg="blue",cex=1.5)
 
-lines(keel~days,data=keels.df[keels.df$octo=="Oscar_CS3",],col="lightblue",lwd=0.4)
-points(keel~days,data=keels.df[keels.df$octo=="Oscar_CS3",],
+lines(keel~days,data=keels.plot[keels.plot$octo=="Oscar_CS3",],col="lightblue",lwd=0.4)
+points(keel~days,data=keels.plot[keels.plot$octo=="Oscar_CS3",],
        pch=24,bg="blue",cex=1.5)
 
-lines(keel~days,data=keels.df[keels.df$octo=="Jordan_CS4",],col="lightblue",lwd=0.4)
-points(keel~days,data=keels.df[keels.df$octo=="Jordan_CS4",],
+lines(keel~days,data=keels.plot[keels.plot$octo=="Jordan_CS4",],col="lightblue",lwd=0.4)
+points(keel~days,data=keels.plot[keels.plot$octo=="Jordan_CS4",],
        pch=25,bg="blue",cex=1.5)
 
 
-lines(keel~days,data=keels.df[keels.df$octo=="Amanda_CS2",],col="lightpink",lwd=0.4)
-points(keel~days,data=keels.df[keels.df$octo=="Amanda_CS2",],
+lines(keel~days,data=keels.plot[keels.plot$octo=="Amanda_CS2",],col="lightpink",lwd=0.4)
+points(keel~days,data=keels.plot[keels.plot$octo=="Amanda_CS2",],
        pch=21,bg="red",cex=1.5)
 
-lines(keel~days,data=keels.df[keels.df$octo=="Joe_CS1",],col="lightpink",lwd=0.4)
-points(keel~days,data=keels.df[keels.df$octo=="Joe_CS1",],
+lines(keel~days,data=keels.plot[keels.plot$octo=="Joe_CS1",],col="lightpink",lwd=0.4)
+points(keel~days,data=keels.plot[keels.plot$octo=="Joe_CS1",],
        pch=22,bg="red",cex=1.5)
 
-lines(keel~days,data=keels.df[keels.df$octo=="Naddlie_CS1",],col="lightpink",lwd=0.4)
-points(keel~days,data=keels.df[keels.df$octo=="Naddlie_CS1",],
+lines(keel~days,data=keels.plot[keels.plot$octo=="Naddlie_CS1",],col="lightpink",lwd=0.4)
+points(keel~days,data=keels.plot[keels.plot$octo=="Naddlie_CS1",],
        pch=23,bg="red",cex=1.5)
 
-lines(keel~days,data=keels.df[keels.df$octo=="Rian_CS5",],col="lightpink",lwd=0.4)
-points(keel~days,data=keels.df[keels.df$octo=="Rian_CS5",],
+lines(keel~days,data=keels.plot[keels.plot$octo=="Rian_CS5",],col="lightpink",lwd=0.4)
+points(keel~days,data=keels.plot[keels.plot$octo=="Rian_CS5",],
        pch=24,bg="red",cex=1.5)
 
 lines(seq.yes,pred1.yes,col="blue",lwd=2,lty=1)

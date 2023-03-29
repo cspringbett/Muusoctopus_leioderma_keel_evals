@@ -151,8 +151,8 @@ burrowers <- c("no","yes","yes","no","yes","no","yes","yes","no","yes")
 ```
 
 ```{r}
-df3 <- df
-df3$Burrowers <- burrowers
+#df3 <- df
+#df3$Burrowers <- burrowers
 ```
 
 ```{r}

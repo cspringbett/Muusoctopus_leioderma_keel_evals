@@ -11,6 +11,7 @@ library(googlesheets4)
 library(reshape2)
 library(nlme)
 library(car)
+library(irr)
 ```
 
 
@@ -53,6 +54,31 @@ keels$O4=as.numeric(keels$O4)
 keels$O5=as.numeric(keels$O5)
 ```
 
+# Check Interobserver Error Using ICC
+```{r}
+obsdata= subset(keels, select=
+                -c(Octopus_Tank,
+                   Recording,
+                   Moved.Out,
+                   Burrower,
+                   Comments), na.omit=na.pass
+              
+)
+
+colnames(obsdata)=c()
+
+
+obsdata=data.frame(A=subset(obsdata[1:10,]),
+                            B=subset(obsdata[11:20,]),
+                            C=subset(obsdata[21:30,]),
+                            D=subset(obsdata[31:40,])
+                            )
+                          
+                            
+  
+  
+icc(obsdata, model="twoway", type="agreement", unit="single")
+```
 
 #Combine to get total means between observers
 ```{r}
@@ -70,6 +96,10 @@ dfmean$Octopus_Tank.3<- NULL
 dfmean$Octopus_Tank.4<- NULL
 
 ```
+
+
+
+
 
 # Import specific dates of observations
 ```{r}

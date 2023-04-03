@@ -56,29 +56,25 @@ keels$O5=as.numeric(keels$O5)
 
 # Check Interobserver Error Using ICC
 ```{r}
-obsdata= subset(keels, select=
-                -c(Octopus_Tank,
-                   Recording,
-                   Moved.Out,
-                   Burrower,
-                   Comments), na.omit=na.pass
-              
+
+thing1=cbind(
+  rep(keels[,7],5),
+  c(keels[,2],keels[,3],keels[,4],keels[,5],keels[,6])
 )
 
-colnames(obsdata)=c()
+thing2=cbind(as.numeric(thing1[thing1[,1]=="Carly",2]),
+      as.numeric(thing1[thing1[,1]=="Cheyne",2]),
+      as.numeric(thing1[thing1[,1]=="Garrett",2]),
+      as.numeric(thing1[thing1[,1]=="Katie",2]))
 
 
-obsdata=data.frame(A=subset(obsdata[1:10,]),
-                            B=subset(obsdata[11:20,]),
-                            C=subset(obsdata[21:30,]),
-                            D=subset(obsdata[31:40,])
-                            )
-                          
-                            
-  
-  
-icc(obsdata, model="twoway", type="agreement", unit="single")
+thing2=thing2[complete.cases(thing2),]
+thing2.df=data.frame(thing2)
+icc(thing2, model="twoway", type="consistency", unit="average")
 ```
+
+
+
 
 #Combine to get total means between observers
 ```{r}

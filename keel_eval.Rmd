@@ -12,6 +12,7 @@ library(reshape2)
 library(nlme)
 library(car)
 library(irr)
+library(lme4)
 ```
 
 
@@ -339,4 +340,36 @@ legend("topright",
        
 #dev.off()
 ```
+
+# Redoing the data analysis taking into account the octopuses put into condos
+
+```{r}
+types=read_sheet("https://docs.google.com/spreadsheets/d/1ckVjS4Jw9o_eg_l_TAwDFNp_evuu36sFHmXyUqT6YqA", sheet="KP_Image_Type")
+keels.df$type=NA
+
+
+for (i in 1:nrow(keels.df)){
+  keels.df$type[i]=types[which(types$Octopus_Tank==keels.df$octo[i]),which(colnames(types)==keels.df$measure[i])]
+}
+keels.df$type=as.character(keels.df$type)
+keels.df$type[keels.df$type=="duggout"]="tank"
+keels.nocondo=keels.df[keels.df$type!="condo",]
+
+
+```
+
+
+```{r}
+keels.withcondo.lme=lme(keel~days*burrow+type,
+             random=~1|octo,
+             correlation=corAR1(form=~days|octo),
+              data=keels.df)
+keels.withcondo.anova=Anova(keels.withcondo.lme,type="III")
+keels.withcondo.anova
+
+
+```
+```
+
+
 

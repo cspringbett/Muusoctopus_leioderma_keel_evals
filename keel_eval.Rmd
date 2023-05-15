@@ -295,10 +295,10 @@ keels.plot$days[keels.plot$octo=="Jerry_CS2"&keels.plot$days==6]=
 
 
 ```{r}
-#svg(filename="Figure_3.svg",height=3.5,width=3.5,pointsize=6)
+svg(filename="Figure_3.svg",height=3.5,width=3.5,pointsize=6)
 par(fig=c(0.04,1,0,1))
 
-plot(keel~days,data=keels.plot,axes=F,ylab="Keel Prominece",xlab="Days in Captivity",main="Keel Regression in Captive Octopuses",type="n")
+plot(keel~days,data=keels.plot,axes=F,ylab="Keel Prominece",xlab="Days in Captivity",type="n")
 box(lwd=2)
 axis(1)
 axis(2)
@@ -357,6 +357,6 @@ legend("topright",
        
       #pch = c(,21),bty="n",title = expression("Activity"["2"]))
        
-#dev.off()
+dev.off()
 ```
 

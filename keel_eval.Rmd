@@ -274,7 +274,6 @@ df1.no=data.frame(
 )
 pred1.no= predict(keels.lme,newdata = df1.no,level=0)
 
-ranef(seq.yes)
 ```
 
 

@@ -240,8 +240,6 @@ keels.lme=lme(keel~days*burrow+type,random=~1|octo,
 keels.anova=Anova(keels.lme,type="III")
 keels.anova
 
-summary(keels.lme)
-ranef(keels.lme)
 ```
 
 # Plotting data
@@ -308,7 +306,6 @@ axis(1)
 axis(2)
 
 
-
 #points(keel~days,data=keels.plot[keels.plot$burrow=="yes",],
 #       pch=22,bg="white",col="blue",cex=1.5)
 
@@ -362,5 +359,12 @@ legend("topright",
       #pch = c(,21),bty="n",title = expression("Activity"["2"]))
        
 dev.off()
+```
+
+#Get slopes
+```{r}
+lm(pred1.yes~seq.yes) # Burrowers
+
+lm(pred1.no~seq.no)   # Non-burrowers
 ```
 

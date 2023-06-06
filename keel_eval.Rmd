@@ -239,6 +239,9 @@ keels.lme=lme(keel~days*burrow+type,random=~1|octo,
               data=keels.df)
 keels.anova=Anova(keels.lme,type="III")
 keels.anova
+
+summary(keels.lme)
+ranef(keels.lme)
 ```
 
 # Plotting data
@@ -270,6 +273,8 @@ df1.no=data.frame(
   type=as.factor(rep("tank",100))
 )
 pred1.no= predict(keels.lme,newdata = df1.no,level=0)
+
+ranef(seq.yes)
 ```
 
 

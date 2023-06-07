@@ -363,8 +363,10 @@ dev.off()
 
 #Get slopes
 ```{r}
-lm(pred1.yes~seq.yes) # Burrowers
+burrowers.lm=lm(keel~days,data=keels.df[keels.df$burrow=="yes",]) # Burrowers
+summary(burrowers.lm)
 
-lm(pred1.no~seq.no)   # Non-burrowers
+nonburrowers.lm=lm(keel~days,data=keels.df[keels.df$burrow=="no",])   # Non-burrowers
+summary(nonburrowers.lm)
 ```
 
